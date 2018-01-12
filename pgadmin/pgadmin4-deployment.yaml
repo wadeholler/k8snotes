@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pgadmin4
+  name: pgadmin4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: pgadmin4
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: pgadmin4
+    spec:
+      containers:
+      - image: dpage/pgadmin4:2.1
+        name: pgadmin4
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/pgadmin
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: datapvc

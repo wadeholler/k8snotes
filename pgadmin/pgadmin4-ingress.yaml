@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
+  name: pgadmin4
+  namespace: default
+spec:
+  rules:
+  - host: kis-pgadmin.homewsc.net
+    http:
+      paths:
+      - backend:
+          serviceName: pgadmin4
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - kis-pgadmin.homewsc.net
+    secretName: kis-pgadmin.homewsc.net-secret
