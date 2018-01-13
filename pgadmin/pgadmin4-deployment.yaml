@@ -22,10 +22,17 @@ spec:
         name: pgadmin4
         ports:
         - containerPort: 80
+        env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: pgadmin@thishost
+        - name: PGADMIN_DEFAULT_PASSWORD
+          value: fun4more
         volumeMounts:
-        - name: data
+        - name: pgadmin
           mountPath: /var/lib/pgadmin
       volumes:
-      - name: data
+      - name: pgadmin
         persistentVolumeClaim:
-          claimName: datapvc
+          claimName: pgadmin
+      securityContext:
+        fsGroup: 48
